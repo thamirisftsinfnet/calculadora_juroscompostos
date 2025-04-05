@@ -130,6 +130,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\CalculadoraJurosCompostos\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FileSystemProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
