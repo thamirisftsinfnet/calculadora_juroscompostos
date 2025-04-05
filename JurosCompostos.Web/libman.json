@@ -1,0 +1,16 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.6.0",
+      "destination": "lib/jquery/"
+    }
+  ,
+{
+  "provider": "cdnjs",
+  "library": "jquery.inputmask@5.0.8",
+  "destination": "lib/jquery.inputmask/"
+}
+]
+}

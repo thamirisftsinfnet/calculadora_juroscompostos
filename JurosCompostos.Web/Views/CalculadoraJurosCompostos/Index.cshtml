@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Calculadora de Juros Compostos";
+}
+<h2>Calculadora de Juros Compostos</h2>
+
+<form method="post" action="/CalculadoraJurosCompostos/Calcular">
+    <label>Principal:</label>
+    <input type="text" name="principal" id="principal" required value="@ViewBag.Principal" /><br />
+
+    <label>Taxa de Juros a.a (%):</label>
+    <input type="text" name="taxa" id="taxa" required value="@ViewBag.Taxa" /><br />
+
+    <label>Tempo (meses):</label>
+    <input type="number" name="periodo" required value="@ViewBag.Periodo" /><br />
+
+    <label>Aporte Mensal:</label>
+    <input type="text" name="aporte" id="aporte" required value="@ViewBag.Aporte" /><br />
+
+
+    <button type="submit">Calcular</button>
+</form>
+
+@if (ViewBag.Resultado != null)
+{
+    <div>
+        <strong>Montante Final:</strong> @ViewBag.Resultado
+    </div>
+}
+@if (ViewBag.Erro != null)
+{
+    <div style="color:red">
+        <strong>Erro:</strong> @ViewBag.Erro
+    </div>
+}
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/jquery.inputmask/inputmask.min.js"></script>
+<script src="~/lib/jquery.inputmask/jquery.inputmask.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#principal').inputmask('currency', {
+            prefix: 'R$ ',
+            groupSeparator: '.',
+            radixPoint: ',',
+            digits: 2,
+            autoGroup: true,
+            rightAlign: false,
+            removeMaskOnSubmit: true
+        });
+
+        $('#taxa').inputmask('decimal', {
+            suffix: ' %',
+            groupSeparator: '.',
+            radixPoint: ',',
+            digits: 2,
+            autoGroup: true,
+            rightAlign: false,
+            removeMaskOnSubmit: true
+        });
+        $('#aporte').inputmask('currency', {
+            prefix: 'R$ ',
+            groupSeparator: '.',
+            radixPoint: ',',
+            digits: 2,
+            autoGroup: true,
+            rightAlign: false,
+            removeMaskOnSubmit: true
+        });
+    });
+</script>
