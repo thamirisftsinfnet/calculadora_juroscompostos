@@ -34,9 +34,9 @@ jobs:
       - name: Run unit tests (NUnit)
         run: |
           mkdir test-results
-          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" ^
-            JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll ^
-            --result=test-results\UnitTestResult.xml
+          & "testrunner/NUnit.ConsoleRunner.3.17.0/tools/nunit3-console.exe" `
+            "JurosCompostos.Test/bin/Release/JurosCompostos.Test.dll" `
+            --result="test-results/UnitTestResult.xml"
 
       - name: Publish to folder
         run: |
@@ -88,7 +88,7 @@ jobs:
         run: |
           nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
           mkdir selenium-results
-          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" ^
-            JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll ^
-            --result=selenium-results\SeleniumTestResult.xml ^
+          & "testrunner/NUnit.ConsoleRunner.3.17.0/tools/nunit3-console.exe" `
+            "JurosCompostos.UI.Test/bin/Release/JurosCompostos.UI.Test.dll" `
+            --result="selenium-results/SeleniumTestResult.xml" `
             --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net"
