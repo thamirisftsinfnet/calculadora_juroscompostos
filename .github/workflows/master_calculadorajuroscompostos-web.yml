@@ -64,3 +64,35 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: ASP-app
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_90149024C4794174BEF4FE95C521739C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3DDB13E776FE4FBF94AB9E41B00A019E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5D8F139493BF4EB49F9E8835926D512A }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'calculadorajuroscompostos-web'
+          slot-name: 'Production'
+          package: ./ASP-app
+
+      - name: Run Selenium E2E tests
+        run: |
+          nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
+          mkdir selenium-results
+          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" `
+            "JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll" `
+            --result="selenium-results\SeleniumTestResult.xml" `
+            --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net"
