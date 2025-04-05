@@ -1,4 +1,4 @@
-name: Build, test, and deploy ASP.NET app to Azure Web App - calculadorajuroscompostos-web
+name: Build, test and deploy ASP app to Azure Web App - calculadorajuroscompostos-web
 
 on:
   push:
@@ -13,8 +13,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.2
@@ -26,23 +25,15 @@ jobs:
         run: nuget restore
 
       - name: Build solution
-        run: msbuild JurosCompostos.sln /p:Configuration=Release /p:TargetFrameworkVersion="v4.7"
+        run: msbuild JurosCompostos.sln /p:Configuration=Release
 
-      - name: Run NUnit tests
+      - name: Run unit tests (NUnit)
         run: |
           mkdir test-results
-          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll --result=test-results\TestResult.xml
-        continue-on-error: false
+          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll --result=test-results\UnitTestResult.xml
 
-      - name: Run Selenium E2E tests
-        run: |
-          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll --result=test-results\SeleniumResult.xml
-        continue-on-error: false
-
-      - name: Publish to folder
-        run: |
-          mkdir published
-          msbuild JurosCompostos.Web/JurosCompostos.Web.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishDir=published\
+      - name: Publish web project to folder
+        run: msbuild JurosCompostos.Web/JurosCompostos.Web.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishDir=published
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
@@ -50,21 +41,32 @@ jobs:
           name: ASP-app
           path: published/
 
+      - name: Upload E2E test binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: SeleniumTests
+          path: JurosCompostos.UI.Test/bin/Release/
+
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write
       contents: read
 
     steps:
-      - name: Download artifact
+      - name: Download web app artifact
         uses: actions/download-artifact@v4
         with:
           name: ASP-app
+
+      - name: Download Selenium E2E tests
+        uses: actions/download-artifact@v4
+        with:
+          name: SeleniumTests
+          path: selenium-tests/
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -80,3 +82,8 @@ jobs:
           app-name: 'calculadorajuroscompostos-web'
           slot-name: 'Production'
           package: ./ASP-app
+
+      - name: Run Selenium E2E tests against deployed app
+        run: |
+          mkdir selenium-results
+          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" selenium-tests\JurosCompostos.UI.Test.dll --result=selenium-results\SeleniumTestResult.xml --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net"
