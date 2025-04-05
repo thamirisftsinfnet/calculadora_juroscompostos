@@ -45,17 +45,14 @@ jobs:
             /p:PublishProfile=FileSystemProfile `
             /p:VisualStudioVersion=17.0
 
-      - name: Verificar se pasta publicada foi criada
-        run: |
-          if (!(Test-Path -Path "published")) {
-            Write-Error "Publicação falhou: pasta 'published' não encontrada."
-          }
+      - name: Listar arquivos publicados
+        run: dir JurosCompostos.Web\bin\Release\Publish /S
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: published/
+          path: JurosCompostos.Web/bin/Release/Publish/
 
   deploy:
     runs-on: windows-latest
