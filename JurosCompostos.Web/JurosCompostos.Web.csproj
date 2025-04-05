@@ -96,6 +96,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\JurosCompostos.AppServices.dll" />
+    <Content Include="bin\JurosCompostos.AppServices.pdb" />
+    <Content Include="bin\JurosCompostos.Web.dll" />
+    <Content Include="bin\JurosCompostos.Web.pdb" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\pt-br\System.Web.Helpers.resources.dll" />
+    <Content Include="bin\pt-br\System.Web.Mvc.resources.dll" />
+    <Content Include="bin\pt-br\System.Web.Razor.resources.dll" />
+    <Content Include="bin\pt-br\System.Web.Webpages.Deployment.resources.dll" />
+    <Content Include="bin\pt-br\System.Web.Webpages.Razor.resources.dll" />
+    <Content Include="bin\pt-br\System.Web.Webpages.resources.dll" />
+    <Content Include="bin\SimpleInjector.dll" />
+    <Content Include="bin\SimpleInjector.Integration.Web.dll" />
+    <Content Include="bin\SimpleInjector.Integration.Web.Mvc.dll" />
+    <Content Include="bin\SimpleInjector.Integration.Web.Mvc.xml" />
+    <Content Include="bin\SimpleInjector.Integration.Web.xml" />
+    <Content Include="bin\SimpleInjector.xml" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="bin\System.Web.Webpages.Deployment.xml" />
+    <Content Include="bin\System.Web.Webpages.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.xml" />
+    <Content Include="bin\WebActivatorEx.dll" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="lib\jquery.inputmask\bindings\inputmask.binding.js" />
@@ -126,6 +156,7 @@
     <Content Include="libman.json" />
     <Content Include="lib\jquery\jquery.min.map" />
     <Content Include="lib\jquery\jquery.slim.min.map" />
+    <None Include="bin\JurosCompostos.Web.dll.config" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
