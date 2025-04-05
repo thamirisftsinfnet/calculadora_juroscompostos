@@ -38,14 +38,12 @@ jobs:
             "JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll" `
             --result="test-results\UnitTestResult.xml"
 
-      - name: Publish to folder
+      - name: Publish to folder using PublishProfile
         run: |
-          $publishDir = "$(pwd)\published"
           msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
-            /t:Build;_CopyWebApplication `
             /p:Configuration=Release `
-            /p:WebProjectOutputDir=$publishDir `
-            /p:OutputPath=bin\Release
+            /p:PublishProfile=FileSystemProfile `
+            /p:VisualStudioVersion=17.0
 
       - name: Verificar se pasta publicada foi criada
         run: |
