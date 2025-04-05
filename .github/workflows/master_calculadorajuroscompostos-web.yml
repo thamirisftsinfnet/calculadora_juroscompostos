@@ -36,7 +36,13 @@ jobs:
           & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll --result=test-results\UnitTestResult.xml
 
       - name: Publish to folder
-        run: msbuild JurosCompostos.Web/JurosCompostos.Web.csproj /p:Configuration=Release /p:TargetFrameworkVersion="v4.7" /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishDir=published
+        run: |
+          msbuild JurosCompostos.Web/JurosCompostos.Web.csproj ^
+            /p:Configuration=Release ^
+            /p:TargetFrameworkVersion="v4.7" ^
+            /p:DeployOnBuild=true ^
+            /p:WebPublishMethod=FileSystem ^
+            /p:PublishDir=published
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
