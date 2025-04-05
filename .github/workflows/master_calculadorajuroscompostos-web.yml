@@ -31,12 +31,12 @@ jobs:
       - name: Run NUnit tests
         run: |
           mkdir test-results
-          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.Tests\bin\Release\JurosCompostos.Tests.dll --result=test-results\TestResult.xml
+          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll --result=test-results\TestResult.xml
         continue-on-error: false
 
       - name: Run Selenium E2E tests
         run: |
-          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.SeleniumTests\bin\Release\JurosCompostos.SeleniumTests.dll --result=test-results\SeleniumResult.xml
+          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll --result=test-results\SeleniumResult.xml
         continue-on-error: false
 
       - name: Publish to folder
