@@ -40,12 +40,12 @@ jobs:
 
       - name: Publish to folder
         run: |
+          $publishDir = "$(pwd)\published"
           msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
+            /t:Build;_CopyWebApplication `
             /p:Configuration=Release `
-            /p:TargetFrameworkVersion="v4.7" `
-            /p:DeployOnBuild=true `
-            /p:WebPublishMethod=FileSystem `
-            /p:PublishDir=published
+            /p:WebProjectOutputDir=$publishDir `
+            /p:OutputPath=bin\Release
 
       - name: Verificar se pasta publicada foi criada
         run: |
