@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy ASP app to Azure Web App - calculadorajuroscompostos-web
+name: Build, test and deploy ASP.NET app to Azure Web App - calculadorajuroscompostos-web
 
 on:
   push:
@@ -13,10 +10,11 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.0.2
@@ -25,16 +23,41 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
-        run: nuget restore
+        run: nuget restore JurosCompostos.sln
+
+      - name: Build solution
+        run: msbuild JurosCompostos.sln /p:Configuration=Release
+
+      - name: Install NUnit Console Runner
+        run: nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
+
+      - name: Run unit tests (NUnit)
+        run: |
+          mkdir test-results
+          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" `
+            "JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll" `
+            --result="test-results\UnitTestResult.xml"
 
       - name: Publish to folder
-        run: msbuild JurosCompostos.Web/JurosCompostos.Web.csproj /p:Configuration=Release /p:TargetFrameworkVersion="v4.7" /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishDir=published
+        run: |
+          $publishDir = "$(pwd)\published"
+          msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
+            /t:Build;_CopyWebApplication `
+            /p:Configuration=Release `
+            /p:WebProjectOutputDir=$publishDir `
+            /p:OutputPath=bin\Release
+
+      - name: Verificar se pasta publicada foi criada
+        run: |
+          if (!(Test-Path -Path "published")) {
+            Write-Error "Publicação falhou: pasta 'published' não encontrada."
+          }
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: '/published/**'
+          path: published/
 
   deploy:
     runs-on: windows-latest
@@ -43,15 +66,15 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: ASP-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -65,5 +88,13 @@ jobs:
         with:
           app-name: 'calculadorajuroscompostos-web'
           slot-name: 'Production'
-          package: ./published
-          
+          package: ./ASP-app
+
+      - name: Run Selenium E2E tests
+        run: |
+          nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
+          mkdir selenium-results
+          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" `
+            "JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll" `
+            --result="selenium-results\SeleniumTestResult.xml" `
+            --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net"
