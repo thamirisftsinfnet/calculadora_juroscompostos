@@ -8,7 +8,7 @@ namespace JurosCompostos.UI.Test.Services
     public class CalculadoraTests
     {
         private IWebDriver driver;
-        private string url = "https://localhost:44375/CalculadoraJurosCompostos";
+        private string url = "https://calculadorajuroscompostos-web-e8bac0hub3bxh3am.brazilsouth-01.azurewebsites.net/";
 
         [SetUp]
         public void Setup()
