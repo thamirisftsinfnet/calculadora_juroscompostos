@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy ASP app to Azure Web App - calculadorajuroscompostos-web
+name: Build, test, and deploy ASP.NET app to Azure Web App - calculadorajuroscompostos-web
 
 on:
   push:
@@ -13,12 +10,13 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup MSBuild path
+      - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Setup NuGet
@@ -27,14 +25,30 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore
 
-      - name: Publish to folder
-        run: msbuild JurosCompostos.Web/JurosCompostos.Web.csproj /p:Configuration=Release /p:TargetFrameworkVersion="v4.7" /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishDir=published
+      - name: Build solution
+        run: msbuild JurosCompostos.sln /p:Configuration=Release /p:TargetFrameworkVersion="v4.7"
 
-      - name: Upload artifact for deployment job
+      - name: Run NUnit tests
+        run: |
+          mkdir test-results
+          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.Tests\bin\Release\JurosCompostos.Tests.dll --result=test-results\TestResult.xml
+        continue-on-error: false
+
+      - name: Run Selenium E2E tests
+        run: |
+          & "packages\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.SeleniumTests\bin\Release\JurosCompostos.SeleniumTests.dll --result=test-results\SeleniumResult.xml
+        continue-on-error: false
+
+      - name: Publish to folder
+        run: |
+          mkdir published
+          msbuild JurosCompostos.Web/JurosCompostos.Web.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile /p:PublishDir=published\
+
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: '/published/**'
+          path: published/
 
   deploy:
     runs-on: windows-latest
@@ -43,15 +57,15 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: ASP-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -65,5 +79,4 @@ jobs:
         with:
           app-name: 'calculadorajuroscompostos-web'
           slot-name: 'Production'
-          package: ./published
-          
+          package: ./ASP-app
