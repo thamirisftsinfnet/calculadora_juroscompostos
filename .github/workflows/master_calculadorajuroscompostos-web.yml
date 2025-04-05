@@ -13,7 +13,8 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.0.2
@@ -22,7 +23,7 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
-        run: nuget restore
+        run: nuget restore JurosCompostos.sln
 
       - name: Build solution
         run: msbuild JurosCompostos.sln /p:Configuration=Release
@@ -33,11 +34,18 @@ jobs:
       - name: Run unit tests (NUnit)
         run: |
           mkdir test-results
-          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll --result=test-results\UnitTestResult.xml
+          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" ^
+            JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll ^
+            --result=test-results\UnitTestResult.xml
 
       - name: Publish to folder
-        run: msbuild JurosCompostos.Web/JurosCompostos.Web.csproj /p:Configuration=Release /p:TargetFrameworkVersion="v4.7" /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:PublishDir=published
-
+        run: |
+          msbuild JurosCompostos.Web/JurosCompostos.Web.csproj `
+            /p:Configuration=Release `
+            /p:TargetFrameworkVersion="v4.7" `
+            /p:DeployOnBuild=true `
+            /p:WebPublishMethod=FileSystem `
+            /p:PublishDir=published
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -80,4 +88,7 @@ jobs:
         run: |
           nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
           mkdir selenium-results
-          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll --result=selenium-results\SeleniumTestResult.xml --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net"
+          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" ^
+            JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll ^
+            --result=selenium-results\SeleniumTestResult.xml ^
+            --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net"
