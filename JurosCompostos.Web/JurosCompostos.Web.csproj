@@ -140,6 +140,7 @@
     <Content Include="lib\jquery\jquery.min.js" />
     <Content Include="lib\jquery\jquery.slim.js" />
     <Content Include="lib\jquery\jquery.slim.min.js" />
+    <Content Include="Properties\PublishProfiles\FileSystemProfile.pubxml.user" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
