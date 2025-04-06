@@ -131,11 +131,14 @@ jobs:
         run: msbuild JurosCompostos.sln /p:Configuration=Release
       
       - name: Instalar ChromeDriver compatível
-        run: nuget install Selenium.WebDriver.ChromeDriver -Version 135.0.7049.4200 -OutputDirectory testrunner
+        run: nuget install Selenium.WebDriver.ChromeDriver -Version 134.0.6998.3600 -OutputDirectory testrunner
 
       - name: Verificar versão do ChromeDriver (opcional)
-        run: .\testrunner\Selenium.WebDriver.ChromeDriver.135.0.7049.4200\driver\win32\chromedriver.exe --version
-
+        run: .\testrunner\Selenium.WebDriver.ChromeDriver.134.0.6998.3600\driver\win32\chromedriver.exe --version
+      
+      - name: Setup ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+        
       - name: Run Selenium E2E tests
         run: |
           nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
