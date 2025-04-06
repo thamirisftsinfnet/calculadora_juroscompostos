@@ -46,7 +46,9 @@ jobs:
           /p:WebPublishMethod=FileSystem `
           /p:Configuration=Release `
           /p:Platform=AnyCPU `
-          /p:PublishUrl=D:\a\calculadora_juroscompostos\calculadora_juroscompostos\JurosCompostos.Web\bin\Release\
+          /p:PublishUrl=JurosCompostos.Web\bin\Release\
+          /verbosity:detailed
+
 
       - name: Debug publish directory
         run: | 
@@ -57,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path:  D:\a\calculadora_juroscompostos\calculadora_juroscompostos\JurosCompostos.Web\bin\Release\
+          path:  JurosCompostos.Web\bin\Release\
 
   deploy:
     runs-on: windows-2022
