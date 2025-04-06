@@ -38,11 +38,15 @@ jobs:
             "JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll" `
             --result="test-results\UnitTestResult.xml"
 
-      - name: Publish web project to folder
+      - name: Publish web project to folder (MSBuild workaround)
         run: |
-          dotnet publish JurosCompostos.Web\JurosCompostos.Web.csproj `
-            -c Release `
-            -o published
+          msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
+            /p:Configuration=Release `
+            /p:OutputPath=published\ `
+            /p:PlatformTarget=AnyCPU `
+            /p:VisualStudioVersion=17.0 `
+            /t:PipelinePreDeployCopyAllFilesToOneFolder
+
 
 
       - name: Ensure publish folder exists
