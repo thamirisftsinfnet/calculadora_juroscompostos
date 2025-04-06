@@ -8,13 +8,17 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     permissions:
       contents: read
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        
+      - name: Install web workload for VS 2022
+        run: |
+          choco install visualstudio2022-workload-netweb --ignore-checksums
 
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.0.2
@@ -66,7 +70,7 @@ jobs:
           path: published/
 
   deploy:
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: build
     environment:
       name: 'Production'
