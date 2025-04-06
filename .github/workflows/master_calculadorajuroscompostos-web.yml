@@ -43,9 +43,10 @@ jobs:
           msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
             /p:Configuration=Release `
             /p:DeployOnBuild=true `
-            /p:PublishProfile=FileSystemProfile `
-            /p:VisualStudioVersion=17.0 `
-            /p:PublishDir=published\
+            /p:WebPublishMethod=FileSystem `
+            /p:PublishDir=published\ `
+            /p:PlatformTarget=AnyCPU `
+            /p:VisualStudioVersion=17.0
 
 
       - name: List published files
