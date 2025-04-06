@@ -130,10 +130,11 @@ jobs:
       - name: Build solution
         run: msbuild JurosCompostos.sln /p:Configuration=Release
 
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: '135.0.7049.4200' 
+      - name: Baixar ChromeDriver compatível com Chrome 134
+        run: |
+          curl -sSL https://chromedriver.storage.googleapis.com/134.0.0/chromedriver_win32.zip -o chromedriver.zip
+          unzip chromedriver.zip -d .
+          echo "$(pwd)" >> $GITHUB_PATH
 
       - name: Run Selenium E2E tests
         run: |
