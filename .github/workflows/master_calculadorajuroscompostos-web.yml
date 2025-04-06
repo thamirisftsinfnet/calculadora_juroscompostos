@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        
+      - name: Install web workload for VS 2022
+        run: |
+          choco install visualstudio2022-workload-netweb --ignore-checksums
 
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.0.2
