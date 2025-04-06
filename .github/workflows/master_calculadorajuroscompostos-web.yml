@@ -50,15 +50,15 @@ jobs:
           /p:WebPublishMethod=FileSystem `
           /p:Configuration=Release `
           /p:Platform=AnyCPU `
-          /p:PublishUrl=published
+          /p:PublishUrl=bin\Release\
 
       - name: Debug publish directory
         run: | 
           Write-Host "Checando permissões de escrita para o diretório atual."
           Get-ChildItem -Path . -Recurse
-      - name: Verificar existência da pasta 'published'
+      - name: Verificar existência da pasta 'bin\Release\'
         run: |
-          if (Test-Path "published") {
+          if (Test-Path "bin\Release\") {
             Write-Host " Pasta 'published' encontrada com sucesso."
             Get-ChildItem -Recurse -Path published
           } else {
@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: published/
+          path: bin\Release\
 
   deploy:
     runs-on: windows-2022
