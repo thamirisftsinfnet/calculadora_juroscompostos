@@ -133,24 +133,7 @@ jobs:
       - name: Setup ChromeDriver
         uses: nanasess/setup-chromedriver@v2
         with:
-          chromedriver-version: 'latest' # Baixa a versão mais recente automaticamente
-
-      - name: Baixar ChromeDriver manualmente
-        run: |
-          mkdir -p testrunner\Selenium.WebDriver.ChromeDriver\driver\win32\
-          Invoke-WebRequest -Uri https://chromedriver.storage.googleapis.com/135.0.7049.4200/chromedriver_win32.zip -OutFile chromedriver.zip
-          Expand-Archive -Path chromedriver.zip -DestinationPath testrunner\Selenium.WebDriver.ChromeDriver\driver\win32\
-          Remove-Item chromedriver.zip
-
-      - name: Verificar versão do ChromeDriver
-        run: |
-          if (Test-Path ".\testrunner\Selenium.WebDriver.ChromeDriver\driver\win32\chromedriver.exe") {
-            Write-Host "ChromeDriver encontrado com sucesso!"
-            .\testrunner\Selenium.WebDriver.ChromeDriver\driver\win32\chromedriver.exe --version
-          } else {
-            Write-Error "ChromeDriver não encontrado no caminho especificado."
-            exit 1
-          }
+          chromedriver-version: '135.0.7049.4200' 
 
       - name: Run Selenium E2E tests
         run: |
