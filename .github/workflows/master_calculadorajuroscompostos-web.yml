@@ -129,6 +129,12 @@ jobs:
 
       - name: Build solution
         run: msbuild JurosCompostos.sln /p:Configuration=Release
+      
+      - name: Instalar ChromeDriver compatível
+        run: nuget install Selenium.WebDriver.ChromeDriver -Version 135.0.7049.4200 -OutputDirectory testrunner
+
+      - name: Verificar versão do ChromeDriver (opcional)
+        run: .\testrunner\Selenium.WebDriver.ChromeDriver.135.0.7049.4200\driver\win32\chromedriver.exe --version
 
       - name: Run Selenium E2E tests
         run: |
