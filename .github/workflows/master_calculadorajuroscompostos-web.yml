@@ -46,20 +46,19 @@ jobs:
           /p:WebPublishMethod=FileSystem `
           /p:Configuration=Release `
           /p:Platform=AnyCPU `
-          /p:PublishUrl=JurosCompostos.Web/bin/Release/ `
+          /p:PublishUrl=publish_output `
           /verbosity:detailed
 
 
-      - name: Debug publish directory
-        run: | 
-          Write-Host "Checando permissões de escrita para o diretório atual."
-          Get-ChildItem -Path . -Recurse
+      - name: Verificar conteúdo publicado
+        run: |
+          Get-ChildItem -Recurse -Path publish_output
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: ${{ github.workspace }}/JurosCompostos.Web/bin/Release/
+          path: publish_output
   deploy:
     runs-on: windows-2022
     needs: build
