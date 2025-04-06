@@ -25,13 +25,14 @@ namespace JurosCompostos.UI.Test.Services
             driver.Navigate().GoToUrl(url);
 
             #region Preencher Campos
-            driver.FindElement(By.Id("principal")).SendKeys("1000");
-            driver.FindElement(By.Id("taxa")).SendKeys("10");
+            var js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("document.getElementById('principal').value = '10000';");
+            js.ExecuteScript("document.getElementById('taxa').value = '1';");
+            js.ExecuteScript("document.getElementById('aporte').value = '1000';");
             driver.FindElement(By.Name("periodo")).SendKeys("12");
-            driver.FindElement(By.Id("aporte")).SendKeys("100");
             #endregion
 
-            
+
             driver.FindElement(By.CssSelector("form button[type='submit']")).Click();
 
            
