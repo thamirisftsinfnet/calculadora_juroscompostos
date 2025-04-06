@@ -38,24 +38,12 @@ jobs:
             "JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll" `
             --result="test-results\UnitTestResult.xml"
 
-      - name: Publish to folder
+      - name: Publish web project to folder
         run: |
-          msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
-            /p:Configuration=Release `
-            /p:DeployOnBuild=true `
-            /p:WebPublishMethod=FileSystem `
-            /p:PublishDir=published\ `
-            /p:PlatformTarget=AnyCPU `
-            /p:VisualStudioVersion=17.0
+          dotnet publish JurosCompostos.Web\JurosCompostos.Web.csproj `
+            -c Release `
+            -o published
 
-
-      - name: List published files
-        run: |
-          if (Test-Path "published") {
-            dir published /S
-          } else {
-            Write-Error "A pasta 'published' não foi encontrada."
-          }
 
       - name: Ensure publish folder exists
         run: |
