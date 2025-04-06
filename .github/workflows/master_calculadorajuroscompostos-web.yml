@@ -131,16 +131,19 @@ jobs:
         run: msbuild JurosCompostos.sln /p:Configuration=Release
 
       - name: Baixar ChromeDriver compatível com Chrome 134
+        shell: powershell
         run: |
-          curl -sSL https://chromedriver.storage.googleapis.com/134.0.0/chromedriver_win32.zip -o chromedriver.zip
-          unzip chromedriver.zip -d .
-          echo "$(pwd)" >> $GITHUB_PATH
-
+          Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/134.0.0/chromedriver_win32.zip" -OutFile "chromedriver.zip"
+          Expand-Archive -Path "chromedriver.zip" -DestinationPath "."
+          $env:Path += ";$PWD"
+          [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::Process)
+  
       - name: Run Selenium E2E tests
+        shell: powershell
         run: |
           nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
-          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" `
+          .\testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe `
             "JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll" `
             --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net" `
-            --labels=All
+            --labels=Before
 
