@@ -133,10 +133,11 @@ jobs:
       - name: Baixar ChromeDriver compatível com Chrome 134
         shell: powershell
         run: |
-          Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/134.0.0/chromedriver_win32.zip" -OutFile "chromedriver.zip"
+          Invoke-WebRequest -Uri "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/134.0.6998.36/win32/chromedriver-win32.zip" -OutFile "chromedriver.zip"
           Expand-Archive -Path "chromedriver.zip" -DestinationPath "."
-          $env:Path += ";$PWD"
+          $env:Path += ";$PWD\chromedriver-win32"
           [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::Process)
+
   
       - name: Run Selenium E2E tests
         shell: powershell
