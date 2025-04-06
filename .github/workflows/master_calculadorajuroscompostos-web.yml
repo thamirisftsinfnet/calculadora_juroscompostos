@@ -38,15 +38,18 @@ jobs:
             "JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll" `
             --result="test-results\UnitTestResult.xml"
 
+      - name: Garantir que a pasta publish_output existe
+        run: mkdir publish_output
+
       - name: Build and publish web project
         run: |
-          msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
+          & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" `
+          JurosCompostos.Web\JurosCompostos.Web.csproj `
           /t:Publish `
           /p:Configuration=Release `
           /p:Platform=AnyCPU `
           /p:PublishDir=publish_output `
           /verbosity:detailed
-
 
       - name: Verificar conteúdo publicado
         run: |
