@@ -47,7 +47,7 @@ jobs:
           path: JurosCompostos.Web\obj\Release\Package\PackageTmp\
 
   test:
-    name: Run Unit Tests with NUnit
+    name: unit-tests
     runs-on: windows-latest
     needs: build
 
@@ -108,4 +108,39 @@ jobs:
           app-name: 'calculadorajuroscompostos-web'
           slot-name: 'Production'
           package: deploy-folder
-          
+  
+  selenium-tests:
+    name: selenium-automated-tests
+    runs-on: windows-latest
+    needs: deploy
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Restore NuGet packages
+        run: nuget restore
+
+      - name: Build solution
+        run: msbuild JurosCompostos.sln /p:Configuration=Release
+
+      - name: Run Selenium E2E tests
+        run: |
+          nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory testrunner
+          mkdir selenium-results
+          & "testrunner\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" `
+            "JurosCompostos.UI.Test\bin\Release\JurosCompostos.UI.Test.dll" `
+            --result="selenium-results\SeleniumTestResult.xml" `
+            --params="baseUrl=https://calculadorajuroscompostos-web.azurewebsites.net"
+
+      - name: Upload Selenium test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-test-results
+          path: selenium-results/SeleniumTestResult.xml      
