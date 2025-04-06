@@ -214,4 +214,23 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <!-- Release | AnyCPU -->
+<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+  <OutputPath>bin\Release\</OutputPath>
+</PropertyGroup>
+
+<!-- Release | Any CPU (com espaço) -->
+<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Any CPU'">
+  <OutputPath>bin\Release\</OutputPath>
+</PropertyGroup>
+
+<!-- Debug | AnyCPU -->
+<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+  <OutputPath>bin\Debug\</OutputPath>
+</PropertyGroup>
+
+<!-- Debug | Any CPU (com espaço) -->
+<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Any CPU'">
+  <OutputPath>bin\Debug\</OutputPath>
+</PropertyGroup>
 </Project>
