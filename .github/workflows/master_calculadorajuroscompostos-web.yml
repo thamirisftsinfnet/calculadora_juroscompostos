@@ -41,11 +41,13 @@ jobs:
       - name: Publish web project to folder (MSBuild workaround)
         run: |
           msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
+            /t:PipelinePreDeployCopyAllFilesToOneFolder `
             /p:Configuration=Release `
-            /p:OutputPath=published\ `
             /p:PlatformTarget=AnyCPU `
             /p:VisualStudioVersion=17.0 `
-            /t:PipelinePreDeployCopyAllFilesToOneFolder
+            /p:_PackageTempDir=$(Build.ArtifactStagingDirectory)\published `
+            /p:AutoParameterizationWebConfigConnectionStrings=false
+
 
 
 
