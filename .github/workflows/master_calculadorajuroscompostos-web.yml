@@ -45,8 +45,14 @@ jobs:
             /p:PublishProfile=FileSystemProfile `
             /p:VisualStudioVersion=17.0
 
-      - name: Listar arquivos publicados
-        run: dir JurosCompostos.Web\bin\Release\Publish /S
+      - name: List published files
+        run: dir published /S
+
+      - name: Ensure publish folder exists
+        run: |
+          if (!(Test-Path -Path "published")) {
+            Write-Error "Publicação falhou: pasta 'published' não encontrada."
+          }
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -69,6 +75,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ASP-app
+          path: .
 
       - name: Login to Azure
         uses: azure/login@v2
