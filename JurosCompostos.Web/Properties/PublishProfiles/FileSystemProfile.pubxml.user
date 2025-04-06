@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Thamiris\Infnet\projeto_devops\src\JurosCompostos\JurosCompostos.Web</_PublishTargetUrl>
-    <History>True|2025-04-06T12:02:20.6956461Z;False|2025-04-06T09:01:47.1402927-03:00;False|2025-04-06T09:01:20.8221917-03:00;True|2025-04-05T16:44:42.5228189-03:00;True|2025-04-05T16:35:35.2664237-03:00;</History>
+    <History>True|2025-04-06T12:33:38.3500777Z;True|2025-04-06T09:02:20.6956461-03:00;False|2025-04-06T09:01:47.1402927-03:00;False|2025-04-06T09:01:20.8221917-03:00;True|2025-04-05T16:44:42.5228189-03:00;True|2025-04-05T16:35:35.2664237-03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/JurosCompostos.AppServices.dll">
@@ -15,13 +15,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/05/2025 16:02:53</publishTime>
     </File>
     <File Include="bin/JurosCompostos.Web.dll">
-      <publishTime>04/06/2025 09:02:20</publishTime>
+      <publishTime>04/06/2025 09:33:37</publishTime>
     </File>
     <File Include="bin/JurosCompostos.Web.pdb">
-      <publishTime>04/06/2025 09:02:20</publishTime>
+      <publishTime>04/06/2025 09:33:37</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
-      <publishTime>04/11/2022 19:09:46</publishTime>
+      <publishTime>11/04/2022 19:09:46</publishTime>
     </File>
     <File Include="bin/pt-br/System.Web.Helpers.resources.dll">
       <publishTime>05/27/2022 20:40:34</publishTime>
@@ -69,7 +69,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/27/2022 23:42:50</publishTime>
     </File>
     <File Include="bin/WebActivatorEx.dll">
-      <publishTime>02/08/2013 14:42:28</publishTime>
+      <publishTime>08/02/2013 14:42:28</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>04/05/2025 16:34:00</publishTime>
@@ -123,7 +123,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/05/2025 16:34:50</publishTime>
     </File>
     <File Include="Properties/PublishProfiles/FileSystemProfile.pubxml.user">
-      <publishTime>04/06/2025 09:01:47</publishTime>
+      <publishTime>04/06/2025 09:02:20</publishTime>
     </File>
     <File Include="Views/CalculadoraJurosCompostos/Index.cshtml">
       <publishTime>04/05/2025 16:35:10</publishTime>
@@ -138,7 +138,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/05/2025 16:34:41</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/05/2025 16:35:34</publishTime>
+      <publishTime>04/06/2025 09:33:37</publishTime>
     </File>
   </ItemGroup>
 </Project>

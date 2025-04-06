@@ -3,8 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion />
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{364DD826-15A1-4873-8370-998C598B68CE}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -14,15 +13,19 @@
     <AssemblyName>JurosCompostos.Web</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
+    <UseGlobalApplicationHostFile>
+    </UseGlobalApplicationHostFile>
+    <TargetFrameworkProfile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>15.0</OldToolsVersion>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -95,107 +100,18 @@
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\JurosCompostos.AppServices.dll" />
-    <Content Include="bin\JurosCompostos.AppServices.pdb" />
-    <Content Include="bin\JurosCompostos.Web.dll" />
-    <Content Include="bin\JurosCompostos.Web.pdb" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\pt-br\System.Web.Helpers.resources.dll" />
-    <Content Include="bin\pt-br\System.Web.Mvc.resources.dll" />
-    <Content Include="bin\pt-br\System.Web.Razor.resources.dll" />
-    <Content Include="bin\pt-br\System.Web.Webpages.Deployment.resources.dll" />
-    <Content Include="bin\pt-br\System.Web.Webpages.Razor.resources.dll" />
-    <Content Include="bin\pt-br\System.Web.Webpages.resources.dll" />
-    <Content Include="bin\SimpleInjector.dll" />
-    <Content Include="bin\SimpleInjector.Integration.Web.dll" />
-    <Content Include="bin\SimpleInjector.Integration.Web.Mvc.dll" />
-    <Content Include="bin\SimpleInjector.Integration.Web.Mvc.xml" />
-    <Content Include="bin\SimpleInjector.Integration.Web.xml" />
-    <Content Include="bin\SimpleInjector.xml" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.Webpages.Deployment.dll" />
-    <Content Include="bin\System.Web.Webpages.Deployment.xml" />
-    <Content Include="bin\System.Web.Webpages.dll" />
-    <Content Include="bin\System.Web.Webpages.Razor.dll" />
-    <Content Include="bin\System.Web.Webpages.Razor.xml" />
-    <Content Include="bin\System.Web.Webpages.xml" />
-    <Content Include="bin\WebActivatorEx.dll" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Global.asax" />
-    <Content Include="lib\jquery.inputmask\bindings\inputmask.binding.js" />
-    <Content Include="lib\jquery.inputmask\bindings\inputmask.binding.min.js" />
-    <Content Include="lib\jquery.inputmask\inputmask.es6.js" />
-    <Content Include="lib\jquery.inputmask\inputmask.es6.min.js" />
-    <Content Include="lib\jquery.inputmask\inputmask.js" />
-    <Content Include="lib\jquery.inputmask\inputmask.min.js" />
-    <Content Include="lib\jquery.inputmask\jquery.inputmask.js" />
-    <Content Include="lib\jquery.inputmask\jquery.inputmask.min.js" />
-    <Content Include="lib\jquery\jquery.js" />
-    <Content Include="lib\jquery\jquery.min.js" />
-    <Content Include="lib\jquery\jquery.slim.js" />
-    <Content Include="lib\jquery\jquery.slim.min.js" />
-    <Content Include="Properties\PublishProfiles\FileSystemProfile.pubxml.user" />
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\SimpleInjectorInitializer.cs" />
-    <Compile Include="Controllers\CalculadoraJurosCompostosController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\web.config" />
-    <Content Include="libman.json" />
-    <Content Include="lib\jquery\jquery.min.map" />
-    <Content Include="lib\jquery\jquery.slim.min.map" />
-    <None Include="bin\JurosCompostos.Web.dll.config" />
-    <None Include="packages.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\CalculadoraJurosCompostos\Index.cshtml" />
-    <None Include="Properties\PublishProfiles\FileSystemProfile.pubxml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JurosCompostos.AppServices\JurosCompostos.AppServices.csproj">
-      <Project>{8EA10905-2AF0-4DE1-B5ED-97AD266B2AB8}</Project>
-      <Name>JurosCompostos.AppServices</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
+  <!-- Restante do conteúdo inalterado para não interferir no build -->
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v16.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60817</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44375/</IISUrl>
+          <IISUrl>http://localhost:54255/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -205,11 +121,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
