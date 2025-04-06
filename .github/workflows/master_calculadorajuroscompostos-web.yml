@@ -50,19 +50,19 @@ jobs:
           /p:WebPublishMethod=FileSystem `
           /p:Configuration=Release `
           /p:Platform=AnyCPU `
-          /p:PublishUrl=bin\Release\
+          /p:PublishUrl=JurosCompostos.Web\bin\Release\
 
       - name: Debug publish directory
         run: | 
           Write-Host "Checando permissões de escrita para o diretório atual."
           Get-ChildItem -Path . -Recurse
-      - name: Verificar existência da pasta 'bin\Release\'
+      - name: Verificar existência da pasta 'JurosCompostos.Web\bin\Release\'
         run: |
-          if (Test-Path "bin\Release\") {
+          if (Test-Path "JurosCompostos.Web\bin\Release\") {
             Write-Host " Pasta 'published' encontrada com sucesso."
-            Get-ChildItem -Recurse -Path published
+            Get-ChildItem -Recurse -Path JurosCompostos.Web\bin\Release\
           } else {
-            Write-Error " Publicação falhou: pasta 'published' não encontrada."
+            Write-Error " Publicação falhou: pasta 'JurosCompostos.Web\bin\Release\' não encontrada."
             exit 1
           }
 
@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: bin\Release\
+          path: JurosCompostos.Web\bin\Release\
 
   deploy:
     runs-on: windows-2022
