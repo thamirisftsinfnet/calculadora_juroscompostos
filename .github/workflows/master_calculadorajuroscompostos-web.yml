@@ -134,9 +134,12 @@ jobs:
         shell: powershell
         run: |
           Invoke-WebRequest -Uri "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/134.0.6998.36/win32/chromedriver-win32.zip" -OutFile "chromedriver.zip"
-          Expand-Archive -Path "chromedriver.zip" -DestinationPath "."
-          $env:Path += ";$PWD\chromedriver-win32"
+          Expand-Archive -Path "chromedriver.zip" -DestinationPath "$PWD\chromedriver"
+          $chromeDriverDir = "$PWD\chromedriver\chromedriver-win32"
+          echo "ChromeDriver extraído em $chromeDriverDir"
+          $env:Path = "$chromeDriverDir;$env:Path"
           [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::Process)
+
 
   
       - name: Run Selenium E2E tests
