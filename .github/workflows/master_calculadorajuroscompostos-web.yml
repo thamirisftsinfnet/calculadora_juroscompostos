@@ -47,7 +47,15 @@ jobs:
             /p:PublishUrl=published `
             /p:PlatformTarget=AnyCPU
 
-
+      - name: Verificar existência da pasta 'published'
+        run: |
+          if (Test-Path "published") {
+            Write-Host "✅ Pasta 'published' encontrada."
+            Get-ChildItem -Recurse -Path published
+          } else {
+            Write-Error "❌ Publicação falhou: pasta 'published' não encontrada."
+            exit 1
+          }
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
