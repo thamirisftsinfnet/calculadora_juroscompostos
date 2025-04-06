@@ -49,10 +49,13 @@ jobs:
           /p:DeployOnBuild=true `
           /p:WebPublishMethod=FileSystem `
           /p:Configuration=Release `
-          /p:Platform="Any CPU" `
+          /p:Platform=AnyCPU `
           /p:PublishUrl=published
 
-
+      - name: Debug publish directory
+        run: | 
+          Write-Host "Checando permissões de escrita para o diretório atual."
+          Get-ChildItem -Path . -Recurse
       - name: Verificar existência da pasta 'published'
         run: |
           if (Test-Path "published") {
