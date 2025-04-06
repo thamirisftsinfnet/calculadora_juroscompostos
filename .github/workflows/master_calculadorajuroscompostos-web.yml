@@ -49,7 +49,7 @@ jobs:
           /p:DeployOnBuild=true `
           /p:WebPublishMethod=FileSystem `
           /p:Configuration=Release `
-          /p:Platform="Any CPU" `
+          /p:Platform=AnyCPU `
           /p:PublishUrl=published
 
 
