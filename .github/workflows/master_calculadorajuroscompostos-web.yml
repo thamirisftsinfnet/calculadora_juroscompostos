@@ -15,10 +15,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
-      - name: Install web workload for VS 2022
-        run: |
-          choco install visualstudio2022-workload-netweb --ignore-checksums
 
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.0.2
@@ -56,15 +52,6 @@ jobs:
         run: | 
           Write-Host "Checando permissões de escrita para o diretório atual."
           Get-ChildItem -Path . -Recurse
-      - name: Verificar existência da pasta 'D:\a\calculadora_juroscompostos\calculadora_juroscompostos\JurosCompostos.Web\bin\Release\'
-        run: |
-          if (Test-Path "D:\a\calculadora_juroscompostos\calculadora_juroscompostos\JurosCompostos.Web\bin\Release\") {
-            Write-Host " Pasta 'published' encontrada com sucesso."
-            Get-ChildItem -Recurse -Path bin\Release\
-          } else {
-            Write-Error " Publicação falhou: pasta 'bin\Release\' não encontrada."
-            exit 1
-          }
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
