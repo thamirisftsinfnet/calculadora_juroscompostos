@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: JurosCompostos.Web\obj\Release\Package\PackageTmp\JurosCompostos.Web.zip
+          path: JurosCompostos.Web\obj\Release\Package\PackageTmp\
 
   deploy:
     runs-on: windows-latest
