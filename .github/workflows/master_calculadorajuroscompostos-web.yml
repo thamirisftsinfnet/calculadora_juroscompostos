@@ -40,13 +40,11 @@ jobs:
 
       - name: Build and publish web project
         run: |
-          & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" `
-          JurosCompostos.Web\JurosCompostos.Web.csproj `
-          /p:DeployOnBuild=true `
-          /p:WebPublishMethod=FileSystem `
+          msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
+          /t:Publish `
           /p:Configuration=Release `
           /p:Platform=AnyCPU `
-          /p:PublishUrl=publish_output `
+          /p:PublishDir=publish_output `
           /verbosity:detailed
 
 
