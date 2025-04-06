@@ -38,21 +38,35 @@ jobs:
             "JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll" `
             --result="test-results\UnitTestResult.xml"
 
-      - name: Publish to folder using PublishProfile
+      - name: Publish to folder
         run: |
           msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
             /p:Configuration=Release `
+            /p:DeployOnBuild=true `
             /p:PublishProfile=FileSystemProfile `
-            /p:VisualStudioVersion=17.0
+            /p:VisualStudioVersion=17.0 `
+            /p:PublishDir=published\
 
-      - name: Listar arquivos publicados
-        run: dir JurosCompostos.Web\bin\Release\Publish /S
+
+      - name: List published files
+        run: |
+          if (Test-Path "published") {
+            dir published /S
+          } else {
+            Write-Error "A pasta 'published' não foi encontrada."
+          }
+
+      - name: Ensure publish folder exists
+        run: |
+          if (!(Test-Path -Path "published")) {
+            Write-Error "Publicação falhou: pasta 'published' não encontrada."
+          }
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: JurosCompostos.Web/bin/Release/Publish/
+          path: published/
 
   deploy:
     runs-on: windows-latest
@@ -69,6 +83,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ASP-app
+          path: .
 
       - name: Login to Azure
         uses: azure/login@v2
