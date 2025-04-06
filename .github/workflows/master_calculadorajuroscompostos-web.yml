@@ -46,7 +46,7 @@ jobs:
           /p:WebPublishMethod=FileSystem `
           /p:Configuration=Release `
           /p:Platform=AnyCPU `
-          /p:PublishUrl=JurosCompostos.Web\bin\Release\ `
+          /p:PublishUrl=JurosCompostos.Web/bin/Release/ `
           /verbosity:detailed
 
 
@@ -59,8 +59,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: JurosCompostos.Web\bin\Release\
-
+          path: ${{ github.workspace }}/JurosCompostos.Web/bin/Release/
   deploy:
     runs-on: windows-2022
     needs: build
