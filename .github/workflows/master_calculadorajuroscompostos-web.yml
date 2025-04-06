@@ -33,7 +33,8 @@ jobs:
           /p:WebPublishMethod=Package `
           /p:PackageAsSingleFile=true `
           /p:SkipInvalidConfigurations=true `
-          /p:PackageLocation="JurosCompostos.Web/obj/Release/Package/JurosCompostos.Web.zip"
+          /p:PackageLocation="JurosCompostos.Web/obj/Release/Package/JurosCompostos.Web.zip" `
+          /p:Configuration=Release
 
       - name: List build output
         continue-on-error: true
