@@ -41,12 +41,11 @@ jobs:
       - name: Publish web project to folder
         run: |
           msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
-            /t:PipelinePreDeployCopyAllFilesToOneFolder `
+            /p:DeployOnBuild=true `
+            /p:WebPublishMethod=FileSystem `
             /p:Configuration=Release `
-            /p:PlatformTarget=AnyCPU `
-            /p:VisualStudioVersion=17.0 `
-            /p:_PackageTempDir=published `
-            /p:AutoParameterizationWebConfigConnectionStrings=false
+            /p:PublishUrl=published `
+            /p:PlatformTarget=AnyCPU
 
 
       - name: Upload artifact for deployment job
