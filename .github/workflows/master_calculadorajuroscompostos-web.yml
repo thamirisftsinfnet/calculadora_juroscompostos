@@ -37,6 +37,9 @@ jobs:
               /p:SkipInvalidConfigurations=true `
               /p:PackageLocation="JurosCompostos.Web\obj\Release\Package\JurosCompostos.Web.zip"
 
+      - name: List build output
+        run: dir JurosCompostos.Web\obj\Release\Package /s
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
