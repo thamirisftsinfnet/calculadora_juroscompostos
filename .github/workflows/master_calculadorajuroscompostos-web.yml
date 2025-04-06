@@ -38,24 +38,16 @@ jobs:
             "JurosCompostos.Test\bin\Release\JurosCompostos.Test.dll" `
             --result="test-results\UnitTestResult.xml"
 
-      - name: Publish web project to folder (MSBuild workaround)
+      - name: Publish web project to folder
         run: |
           msbuild JurosCompostos.Web\JurosCompostos.Web.csproj `
             /t:PipelinePreDeployCopyAllFilesToOneFolder `
             /p:Configuration=Release `
             /p:PlatformTarget=AnyCPU `
             /p:VisualStudioVersion=17.0 `
-            /p:_PackageTempDir=$(Build.ArtifactStagingDirectory)\published `
+            /p:_PackageTempDir=published `
             /p:AutoParameterizationWebConfigConnectionStrings=false
 
-
-
-
-      - name: Ensure publish folder exists
-        run: |
-          if (!(Test-Path -Path "published")) {
-            Write-Error "Publicação falhou: pasta 'published' não encontrada."
-          }
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
