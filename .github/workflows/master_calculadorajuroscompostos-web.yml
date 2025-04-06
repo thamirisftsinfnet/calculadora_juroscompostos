@@ -29,13 +29,13 @@ jobs:
 
       - name: Publish to folder
         run: |
-            msbuild /nologo /verbosity:m /t:Build /p:_PackageTempDir="./published/" JurosCompostos.Web\JurosCompostos.Web.csproj
+            msbuild JurosCompostos.Web\JurosCompostos.Web.csproj /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:PublishDir=./published /p:Configuration=Release
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: ASP-app
-          path: './published/'
+          path: ./published/**
 
   deploy:
     runs-on: windows-latest
